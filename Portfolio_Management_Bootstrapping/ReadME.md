@@ -23,4 +23,4 @@ based on the probability distribution of net profit at the end of a 20 day perio
 
 ### Repository Structure
 [`Portfolio_Management_Bootstrapping.rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Portfolio_Management_Bootstrapping/Portfolio_Management_Bootstrapping.Rmd) is the R notebook with code used to prepare my report.
-`Portfolio_Management_Bootstrapping.md` is the markdown report with my analysis.
+[`Portfolio_Management_Bootstrapping.md`](https://github.com/sagar-chadha/Coursework/blob/master/Portfolio_Management_Bootstrapping/Portfolio_Management_Bootstrapping.md) is the markdown report with my analysis.

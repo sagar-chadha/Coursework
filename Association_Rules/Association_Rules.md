@@ -40,7 +40,7 @@ together.
 
 ### What sells most commonly?
 
-![](Association_Rules_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 The most commonly sold item is **Whole Milk** followed by **Vegetables**
 and **Rolls/Buns**! Out of the 169 unique items sold, we see that only
@@ -120,7 +120,9 @@ plot(head(groceryrules, n = 10, by ="lift"), method = "graph",
      main = "Top 10 Association Rules")
 ```
 
-![](Association_Rules_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+### Conclusion-
 
 A study of the associations shows us the following - <br>
 

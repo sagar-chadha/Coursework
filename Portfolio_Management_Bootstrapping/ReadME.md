@@ -15,6 +15,8 @@ and use bootstrapping to recommend the best investment strategies out of three p
 * Safe investment
 * Risky Investment
 
+based on the probability distribution of net profit at the end of a 20 day period.
+
 ### Concepts Used - 
 * `quantmod` library to download several years of closing stock prices.
 * **Bootstrapping** to simulate daily movements of the ETFs under study and get a sense of future returns.

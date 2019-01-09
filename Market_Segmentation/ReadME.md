@@ -14,4 +14,4 @@ A knowledge of these clusters can be used by 'NutrientH2O' to create Twitter con
 
 ### Repository Structure
 [`Market_Segmentation.rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Market_Segmentation/Market%20Segmentation.Rmd) has the R notebook with the code I wrote for preparing the report. <br>
-`Market_Segmentation.md` is the markdown report with my analysis.
+[`Market_Segmentation.md`](https://github.com/sagar-chadha/Coursework/blob/master/Market_Segmentation/Market_Segmentation.md) is the markdown report with my analysis.

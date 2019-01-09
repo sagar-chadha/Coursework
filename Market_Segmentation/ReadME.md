@@ -11,3 +11,7 @@ In this problem, I look at tweets data for the followers of a hypothetical consu
 
 ## Practical Application - 
 A knowledge of these clusters can be used by 'NutrientH2O' to create Twitter content targeted towards specific consumer groups.
+
+## Repository Structure
+`Market_Segmentation.rmd` has the R notebook with the code I wrote for preparing the report. <br>
+`Market_Segmentation.md` is the markdown report with my analysis.

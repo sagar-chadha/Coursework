@@ -102,7 +102,7 @@ The rent values are marred by outlier values as shown by the large
 number of dots extending above the dense group of dots. The median value
 of green buildings is USD 27.6 while that of non-green buildings is USD
 25. So there is a USD 2.6 difference while taking no variable into
-account.
+account. This is the analysis as presented by the current excel master. There are two problems with this analysis.
 
 ### Problem with the analysis - 1
 

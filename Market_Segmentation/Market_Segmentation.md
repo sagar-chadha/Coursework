@@ -12,41 +12,6 @@ Let’s read in our data and see what it looks like.
     ## 4 3oeb4hiln       1              5      2             2             0
     ## 5 fd75x1vgk       5              2      0             6             1
     ## 6 h6nvj91yp       6              4      2             7             0
-    ##   tv_film sports_fandom politics food family home_and_garden music news
-    ## 1       1             1        0    4      1               2     0    0
-    ## 2       1             4        1    2      2               1     0    0
-    ## 3       5             0        2    1      1               1     1    1
-    ## 4       1             0        1    0      1               0     0    0
-    ## 5       0             0        2    0      1               0     0    0
-    ## 6       1             1        0    2      1               1     1    0
-    ##   online_gaming shopping health_nutrition college_uni sports_playing
-    ## 1             0        1               17           0              2
-    ## 2             0        0                0           0              1
-    ## 3             0        2                0           0              0
-    ## 4             0        0                0           1              0
-    ## 5             3        2                0           4              0
-    ## 6             0        5                0           0              0
-    ##   cooking eco computers business outdoors crafts automotive art religion
-    ## 1       5   1         1        0        2      1          0   0        1
-    ## 2       0   0         0        1        0      2          0   0        0
-    ## 3       2   1         0        0        0      2          0   8        0
-    ## 4       0   0         0        1        0      3          0   2        0
-    ## 5       1   0         1        0        1      0          0   0        0
-    ## 6       0   0         1        1        0      0          1   0        0
-    ##   beauty parenting dating school personal_fitness fashion small_business
-    ## 1      0         1      1      0               11       0              0
-    ## 2      0         0      1      4                0       0              0
-    ## 3      1         0      1      0                0       1              0
-    ## 4      1         0      0      0                0       0              0
-    ## 5      0         0      0      0                0       0              1
-    ## 6      0         0      0      0                0       0              0
-    ##   spam adult
-    ## 1    0     0
-    ## 2    0     0
-    ## 3    0     0
-    ## 4    0     0
-    ## 5    0     0
-    ## 6    0     0
 
 ### Data Specifics
 
@@ -60,7 +25,7 @@ Let’s read in our data and see what it looks like.
 
 ### What are the areas with the most number of tweets in this period ?
 
-![](Market_Segmentation_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Market_Segmentation_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 The most tweets fall into the chatter category which doesnt tell us a
 lot about the audience. However, we do see many tweets about *health,
@@ -76,7 +41,7 @@ columns would mean that multiple users who tweet about the one thing
 also tweet about another. This will lead to insights about our potential
 target audience.
 
-![](Market_Segmentation_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Market_Segmentation_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 The blue squares above are at the intersection of interest areas that
 are positively correlated. We see some dark blue squares at the
@@ -134,7 +99,7 @@ plot(num_centers, rmse_all, type = 'b',
      xlab = "Number of Centers", ylab = "RMSE", main = "RMSE vs Number of Clusters")
 ```
 
-![](Market_Segmentation_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Market_Segmentation_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 The plot above shows a continuous decline in RMSE with cluster number.
 RMSE captures the square root of the L2 distance of each cluster point
@@ -144,8 +109,7 @@ number of clusters as 6 where the elbow exists and create clusters.
 
 ### Results
 
-![Cluster
-Analysis.](Chadha_Sagar_files/figure-markdown_github/Cluster%20Analysis.PNG)
+![Cluster Analysis.](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Market_Segmentation_files/figure-markdown_github/Cluster%20Analysis.PNG)
 
 The picture above shows the result of the cluster analysis on the data.
 The colors indicate whether an interest is dominant(green) or

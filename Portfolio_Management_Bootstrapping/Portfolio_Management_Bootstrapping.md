@@ -236,4 +236,4 @@ end up with USD 141394 or lose a lot and end up with just USD 54037.
 The investor has to carefully regard these results to make his
 decision - <br> 1. An old investor should play very safely and choose
 strategy 2. <br> 2. A younger investor with a good income can possibly
-take a chance with strategy 3 and try his luck!**
+take a chance with strategy 3 and try his luck!

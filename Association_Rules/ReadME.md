@@ -10,5 +10,5 @@ This has multiple possible applications - <br>
 * This information can help store managers plan discounts and promotions more effectively. Knowing which items sell together, they can better understand how to completely evaluate the impact of discounts and promotions on an item.
 
 ### Repository Structure
-`Association_Rules.rmd` has the R code I used to prepare my final report.
+`Association_Rules.rmd` has the R code I used to prepare my final report. <br>
 `Association_Rules.md` is the final markdown report with my analysis.

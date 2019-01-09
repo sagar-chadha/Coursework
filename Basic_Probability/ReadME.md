@@ -15,3 +15,6 @@ The specificity is about 0.9999. This means that if someone doesn't have the dis
 In the general population, incidence of the disease is reasonably rare: about 0.0025% of all people have it (or 0.000025 as a decimal probability).
 
 Suppose someone tests positive. What is the probability that they have the disease? In light of this calculation, do you envision any problems in implementing a universal testing policy for the disease?"
+
+### Repository Structure
+`Probability Practice.md` file has my solutions.

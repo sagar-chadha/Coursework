@@ -11,4 +11,4 @@ This has multiple possible applications - <br>
 
 ### Repository Structure
 [`Association_Rules.rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Association_Rules/Association_Rules.Rmd) has the R code I used to prepare my final report. <br>
-[`Association_Rules.md`]() is the final markdown report with my analysis.
+[`Association_Rules.md`](https://github.com/sagar-chadha/Coursework/blob/master/Association_Rules/Association_Rules.md) is the final markdown report with my analysis.

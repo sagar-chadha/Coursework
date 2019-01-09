@@ -1,15 +1,11 @@
 Grocery Store Purchase Analysis using Association Rules
 -------------------------------------------------------
 
-Reading in the data, we find that the data has 9,835 transactions. Each
-row is one transaction and each comma separated item is one item from
-that transaction!
+Reading in the data, we find that the data has 9,835 transactions. Each row is one transaction and each comma separated item is one item from that transaction!
 
     ## [1] 9835
 
-Let’s get a sense of what the customers are buying from this store! This
-will lead into our analysis of what items are most frequently bought
-together.
+Let’s get a sense of what the customers are buying from this store! This will lead into our analysis of what items are most frequently bought together.
 
 ### What is the number of different items sold here?
 
@@ -17,12 +13,9 @@ together.
 
 ### What sells most commonly?
 
-![](Association_Rules_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-The most commonly sold item is **Whole Milk** followed by **Vegetables**
-and **Rolls/Buns**! Out of the 169 unique items sold, we see that only
-15 odd items are sold in considerable amounts. There is a long tail of
-low selling items! What are these?
+The most commonly sold item is **Whole Milk** followed by **Vegetables** and **Rolls/Buns**! Out of the 169 unique items sold, we see that only 15 odd items are sold in considerable amounts. There is a long tail of low selling items! What are these?
 
     ##              item_vector Freq
     ## 1              baby food    1
@@ -63,7 +56,7 @@ This would mean items that are most commonly sold together in a transaction! We 
 
     ## set of 10 rules
 
-![](Association_Rules_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 A study of the associations shows us the following - <br>
 

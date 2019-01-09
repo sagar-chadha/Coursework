@@ -31,4 +31,4 @@ In this problem, I look at all flights that take off or land in ABIA in the year
 
 ## Repository Structure
 [`Visual_Analysis_ggplot2.rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Visual_Analysis_ggplot2/Visual_Analysis_ggplot2.Rmd) is the R notebook with the code I used to prepare the report. <br>
-`Visual_Analysis_ggplot2.md` is the markdown report with my analysis.
+[`Visual_Analysis_ggplot2.md`](https://github.com/sagar-chadha/Coursework/blob/master/Visual_Analysis_ggplot2/Visual_Analysis_ggplot2.md) is the markdown report with my analysis.

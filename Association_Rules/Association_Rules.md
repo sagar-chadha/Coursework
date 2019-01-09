@@ -11,11 +11,11 @@ Let’s get a sense of what the customers are buying from this store! This
 will lead into our analysis of what items are most frequently bought
 together.
 
-What is the number of different items sold here?
+### What is the number of different items sold here?
 
     ## [1] 169
 
-What sells most commonly?
+### What sells most commonly?
 
 ![](Association_Rules_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
@@ -36,12 +36,8 @@ low selling items! What are these?
     ## 9        make up remover    8
     ## 10        salad dressing    8
 
-Let’s see what items are associated with other items on the grocery
-list? This would mean items that are most commonly sold together in a
-transaction! We will use a low *minsup* threshold here since we want
-item associations that would not be obvious to the grocer at first
-glance- Items like milk, eggs, vegetables are the most commonly bought
-items and most people know about their association
+### Let’s see what items are associated with other items on the grocery list?
+This would mean items that are most commonly sold together in a transaction! We will use a low *minsup* (minimum support) threshold here since we want item associations that would not be obvious to the grocer at first glance- Items like milk, eggs, vegetables are the most commonly bought items and most people know about their association
 
     ## Apriori
     ## 

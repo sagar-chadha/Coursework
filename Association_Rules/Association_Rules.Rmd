@@ -1,0 +1,126 @@
+---
+title: "Association Rules Exercise"
+author: "Sagar Chadha"
+date: "8/17/2018"
+output: 
+  md_document:
+    variant: markdown_github
+  keep_md: yes
+  fig_width: 12
+  fig_height: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Grocery Store Purchase Analysis using Association Rules
+
+Reading in the data, we find that the data has 9,835 transactions. Each row is one transaction and each comma separated item is one item from that transaction!
+
+```{r, echo = FALSE, include = FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(directlabels)
+library(RColorBrewer)
+library(ggalluvial)
+library(tidyverse)
+library(arules)
+library(arulesViz)
+library(tm) 
+library(magrittr)
+library(slam)
+library(proxy)
+library(xgboost)
+```
+
+
+```{r, echo = FALSE}
+groceries <- read.table("Groceries.txt", header = FALSE, sep = ";", stringsAsFactors = FALSE)
+
+```
+
+ Let's look at one row from our data -
+
+```{r}
+groceries[1,]
+```
+
+Currently our data is just comma separated items with each row of our data being one transaction. For our analysis we need to convert this to a list with each element of the list being a vector with the items from a transaction.
+
+```{r}
+item_list <- list()
+
+for (i in 1:nrow(groceries)){
+  item_list[[i]] <- unlist(strsplit(groceries[i,], ","))
+}
+
+item_list <- apply(groceries, MARGIN = 1, FUN = function(x){unlist(strsplit(x, ","))})
+
+item_vector <- unlist(item_list)
+```
+
+### What is the number of different items sold here?
+
+This would give us a sense of what customers are buying from this store and lead into our analysis of what items are most frequently bought together.
+
+```{r, echo = FALSE}
+length(unique(item_vector))
+
+```
+
+### What sells most commonly?
+
+```{r, echo = FALSE}
+count_item <- as.data.frame(table(item_vector))
+
+ggplot(count_item %>% 
+         arrange(-Freq) %>% 
+         head(20), 
+       aes(x = reorder(item_vector, -Freq), y = Freq)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() +
+  scale_x_discrete("Times sold") +
+  scale_y_continuous("Item Name")
+```
+
+The most commonly sold item is **Whole Milk** followed by **Vegetables** and **Rolls/Buns**! Out of the 169 unique items sold, we see that only 15 odd items are sold in considerable amounts. 
+
+### There is a long tail of low selling items! What are these?
+
+```{r}
+count_item %>%
+  arrange(Freq) %>%
+  head(10)
+
+```
+
+### What items are associated with other items on the grocery list? 
+
+Association here means items that are most commonly sold together in a transaction! We will use a low _minsup_ (minimum support) threshold here since we want item associations that would not be obvious to the grocer at first glance- Items like milk, eggs, vegetables are the most commonly bought items and most people know about their associations.
+
+```{r}
+# consider only unique items in each basket
+item_list <- lapply(item_list, unique)
+
+# convert to the transactions type
+item_transactions <- as(item_list, "transactions")
+
+# apply the apriori
+groceryrules <- apriori(item_transactions,
+                        parameter=list(support = .001,
+                                       confidence = .5))
+head(groceryrules, n = 10, by ="lift")
+
+plot(head(groceryrules, n = 10, by ="lift"), method = "graph", 
+     main = "Top 10 Association Rules")
+```
+
+### Conclusion - 
+A study of the associations shows us the following - <br>
+
+1. People purchase soda, popcorn and other salty snacks together.
+2. Cheese, ham, white bread and eggs usually sell together.
+3. Sugar, baking powder and flour sell together, these are usually baking items.
+4. Cheese, curd, whipped cream and yogurt sell together!

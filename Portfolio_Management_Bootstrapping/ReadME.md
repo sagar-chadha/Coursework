@@ -18,3 +18,7 @@ and use bootstrapping to recommend the best investment strategies out of three p
 ### Concepts Used - 
 * `quantmod` library to download several years of closing stock prices.
 * **Bootstrapping** to simulate daily movements of the ETFs under study and get a sense of future returns.
+
+### Repository Structure
+`Portfolio_Management_Bootstrapping.rmd` is the R notebook with code used to prepare my report.
+`Portfolio_Management_Bootstrapping.md` is the markdown report with my analysis.

@@ -25,8 +25,9 @@ In this problem, I look at all flights that take off or land in ABIA in the year
 * What are the worst times to fly for each month from Austin?
 * Do weekends and weekdays have different patterns of delays?
 
-## Concepts Used -
-Various visualization types and parameter tweaks as allowed by the R package `ggplot2` and a bit of statistics.
+## Concepts Used - <br>
+   1. Various visualization types and parameter tweaks as allowed by the R package `ggplot2`
+   2. Basic statistics.
 
 ## Repository Structure
 `Visual_Analysis_ggplot2.rmd` is the R notebook with the code I used to prepare the report. <br>

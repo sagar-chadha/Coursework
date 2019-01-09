@@ -1,8 +1,13 @@
 ## Market Segmentation strategy for a consumer brand
+
+## The task
 ![Segmentation](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/segmentation1.jpg) <br>
 
-In this problem, I look at the tweets for followers of a large consumer brand called 'NutrientH2O' and provide insights to their marketing team about the people that follow them on Twitter. I look at the kind of topics that users are most talking about and use these topics to cluster users into logical segments that can then be targeted using focussed marketing strategies.
+In this problem, I look at tweets data for the followers of a hypothetical consumer brand called 'NutrientH2O' and try to provide insights to their marketing team about their Twitter following. My strategy for market segmentation is to cluster together followers by the kind of interest areas that they most tweet about. 
 
-Concepts Used - <br>
+## Concepts Used - <br>
 * Correlation analysis to see which topics are correlated
 * k-Means clustering to cluster users into segments.
+
+## Practical Application - 
+A knowledge of these clusters can be used by 'NutrientH2O' to create Twitter content targeted towards specific consumer groups.

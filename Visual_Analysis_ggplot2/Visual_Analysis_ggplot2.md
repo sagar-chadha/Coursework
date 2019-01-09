@@ -71,7 +71,7 @@ occupancy rates. Do these even exist?
 
 Let’s plot rent with occupancy rates and see where these buildings fall.
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 Looking at the plot above, we see that there are many buildings with
 occupancy rates less than 10% - 215 to be exact.
@@ -82,7 +82,7 @@ chart. We also see that the discrepancies are larger for very small
 values of the occupancy rate. Let’s zoom in a bit more to see it
 clearly.
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 Much better! The graph now shows clearly that the points below leasing
 rates of 1% are the real culprits in being unusual with their rents. We
@@ -96,7 +96,7 @@ data.
 The next issue is that of calculating the rent for green and non-green
 buildings respectively. A boxplot is ideal here.
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 The rent values are marred by outlier values as shown by the large
 number of dots extending above the dense group of dots. The median value
@@ -110,7 +110,7 @@ The problem that the analyst has not thought of is that he cannot
 directly compare the rents of buildings quoted on net or non-net since
 that means utility is included or not.
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 The boxplot clearly shows the difference in rents between net and
 non-net rent payers as it is expected to be. The analyst cannot
@@ -125,7 +125,7 @@ The other assumption that the analyst makes is that rent difference
 remains between green and non-green buildings continuously for a period
 of 30 years. Lets check whether this is true-
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 So, we see that expected rent for newer buildings (&lt;5 years) is
 actually higher for non-green buildings. The rent for green buildings
@@ -140,7 +140,7 @@ indoor quality than a non-green building.
 
 The analyst fails to consider the value of amenities in deciding the
 rent of the building.
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 The graph above shows that given amenities, the difference between the
 rent of a green vs a non green building is lower initially.
@@ -241,11 +241,11 @@ Dallas is the most common destination from Austin! Around 11,000 flights
 flew from Austin to DAL and DFW in 2008, this is almost 900 flights a
 month!
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-16-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 ### Are these specific months when more flights depart from Austin to these destinations?
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-17-1.png)
 
 The chart shows that flights from Austin to all these destinations
 remain mostly the same per month, but for DAL the number of flights drop
@@ -318,13 +318,13 @@ max_delay_dest <- airline %>%
 max_delay_dest <- as.character(max_delay_dest$Dest)
 ```
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-24-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 The boxplot shows that there are clearly large outliers in departure
 delays for each destination. Let’s zoom in a bit on the top 5
 destinations with most departure delays-
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-25-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 In terms of departure delays from Austin we can say that **EWR - Newark
 Airport**, **SNA - John Wayne Airport, California**, and **STL - St
@@ -350,7 +350,7 @@ Lets categorise departure times from Austin into - <br>
 We will then look at the median departure delays for these times for
 each month in 2008.
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-28-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
 The heatmap above shows the proportion of delays) darker colors mean
 more proportion of delays) by time of day and month. **We see that the
@@ -363,7 +363,7 @@ across the time range.**
 Let’s define weekdays where *DayOfWeek* is 1 through 4. Friday, Saturday
 and Sunday are the weekends.
 
-![](Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-30-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Visual_Analysis_ggplot2_files/figure-markdown_github/unnamed-chunk-30-1.png)
 
 The worst times to fly during weekdays are Evening and Night times in
 terms of proportion of delays. We see that Weekends have equal

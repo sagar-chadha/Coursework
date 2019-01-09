@@ -17,4 +17,4 @@ In the general population, incidence of the disease is reasonably rare: about 0.
 Suppose someone tests positive. What is the probability that they have the disease? In light of this calculation, do you envision any problems in implementing a universal testing policy for the disease?"
 
 ### Repository Structure
-`Probability Practice.md` file has my solutions.
+[`Probability Practice.md`](https://github.com/sagar-chadha/Coursework/blob/master/Basic_Probability/Probability%20Practice.md) file has my solutions.

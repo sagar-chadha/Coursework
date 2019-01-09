@@ -11,4 +11,4 @@ My weapons of choice for machine learning are R and python, hence you will find 
 ## Repository Structure
 The work you will see here is done as part of some course that I undertook in the program. However, it doesnt make intuitive sense for me to club my work under folders named after those subjects. Therefore, I have tried to club my work either by the main concepts I used while doing the work or the analytical model employed. 
 
-Each folder will have its own ReadME file that will tell you more about what I have done.
+Each folder will have its own ReadME file that will tell you more about what I have done. The `Repository_files` folder has the visuals and other things necessary to prepare this repository.

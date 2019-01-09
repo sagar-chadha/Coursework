@@ -1,5 +1,5 @@
-Bootstrapping
--------------
+Finding the optimal investment Strategy using Bootstrapping
+----------------------------------------------------------------
 
 Let’s extract the prices for each asset class using the getSymbols
 function and adjust for splits/dividends.
@@ -35,7 +35,7 @@ Let’s now plot the closing prices along with returns for all possible
 investments on a graph to see if we have captured the good and bad
 phases of the stock market -
 
-![](Bootstrapping_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Bootstrapping_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 The chart shows that we have enough data from the past to capture the
 ups and downs in the stock market.
@@ -86,7 +86,7 @@ ggplot(mapping = aes(wealth_matrix_1[,20] - 100000)) +
        subtitle = "Strategy 1")
 ```
 
-![](Bootstrapping_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Bootstrapping_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 The above histogram shows the difference between final amount at the end
 of 20 days and the initial wealth invested. Negtives mean losses and
@@ -136,7 +136,7 @@ ggplot(mapping = aes(wealth_matrix_2[,20] - 100000)) +
        subtitle = "Strategy 2")
 ```
 
-![](Bootstrapping_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Bootstrapping_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 The above histogram shows the difference between final amount at the end
 of 20 days and the initial wealth invested. Negtives mean losses and
@@ -185,7 +185,7 @@ ggplot(mapping = aes(wealth_matrix_3[,20] - 100000)) +
        subtitle = "Strategy 3")
 ```
 
-![](Bootstrapping_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Bootstrapping_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 The above histogram shows the difference between final amount at the end
 of 20 days and the initial wealth invested. Negtives mean losses and
@@ -232,7 +232,8 @@ There is a super high risk with this investment. Although the average is
 still around USD 100345, we can possible more than double our money and
 end up with USD 141394 or lose a lot and end up with just USD 54037.
 
-**The investor has to carefully regard these results to make his
+### Conclusion
+The investor has to carefully regard these results to make his
 decision - <br> 1. An old investor should play very safely and choose
 strategy 2. <br> 2. A younger investor with a good income can possibly
 take a chance with strategy 3 and try his luck!**

@@ -1,5 +1,5 @@
-Green Buildings: Are they worth the investment?
------------------------------------------------
+Task 1: Green Buildings- Are they worth the investment?
+--------------------------------------------------------
 
 Reading in the green buildings data, we find that the dataset has 7,894
 rows (buildings) and 23 columns.
@@ -165,8 +165,8 @@ building.** However, renting out apartments with rents inclusive of
 utilities means that the developer can make money on the utility bills
 also. We just dont have that information here to compute the results.
 
-Flights at ABIA - Austin Bergstrom International Airport
---------------------------------------------------------
+Task 2: Flights at ABIA - Austin Bergstrom International Airport
+------------------------------------------------------------------
 
 Let’s read in the dataset. It has data for each flight that comes into
 ABIA or goes out of ABIA for the year 2008. We have each flight’s basic

@@ -1,4 +1,5 @@
 # Coursework
+![Image](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/course.png)
 ### Hey there! <br>
 
 If you are reading this before May'19, then I am currently enrolled in the MS in Business Analytics program at UT Austin. This is an intensive and hands on 10-month program that aims to transform quant geeks like myself into quantitatively trained story tellers through lots of projects.

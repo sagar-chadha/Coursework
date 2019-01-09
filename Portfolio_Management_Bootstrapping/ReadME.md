@@ -22,5 +22,5 @@ based on the probability distribution of net profit at the end of a 20 day perio
 * **Bootstrapping** to simulate daily movements of the ETFs under study and get a sense of future returns.
 
 ### Repository Structure
-`Portfolio_Management_Bootstrapping.rmd` is the R notebook with code used to prepare my report.
+[`Portfolio_Management_Bootstrapping.rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Portfolio_Management_Bootstrapping/Portfolio_Management_Bootstrapping.Rmd) is the R notebook with code used to prepare my report.
 `Portfolio_Management_Bootstrapping.md` is the markdown report with my analysis.

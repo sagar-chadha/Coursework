@@ -1,0 +1,578 @@
+---
+title: "Visual Analysis with ggplot2"
+author: "Sagar Chadha"
+date: "8/17/2018"
+output: 
+  md_document:
+    variant: markdown_github
+  keep_md: yes
+  fig_width: 12
+  fig_height: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Green Buildings: Are they worth the investment?
+
+Reading in the green buildings data, we find that the dataset has 7,894 rows (buildings) and 23 columns.
+
+```{r, echo = FALSE, include = FALSE}
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+library(gridExtra)
+
+```
+
+Let's look at the columns that our data has -  
+
+```{r, echo = FALSE}
+g_building <- read.table('GreenBuildings.txt', 
+                         sep = ',',
+                         header = TRUE,
+                         colClasses = c("character", "integer", "numeric",
+                                        "numeric", "numeric", "numeric",
+                                        "integer", "integer", "integer",
+                                        "integer", "integer", "integer",
+                                        "integer", "integer", "integer",
+                                        "integer", "integer", "integer",
+                                        "integer", "numeric", "numeric",
+                                        "numeric", "numeric"))
+
+glimpse(g_building)
+
+```
+
+What's with the LEED and Energy Star Ratings? Are they awarded individually or can a building have both the certifications?
+
+```{r, echo = FALSE}
+crosstab <- table(g_building$LEED, g_building$Energystar)
+dimnames(crosstab) <- list(c('LEED-0', 'LEED-1'), c("EnergyStar-0", "EnergyStar-1"))
+crosstab
+```
+
+The crosstab above tells that of the 685 buildings with a green rating, 54 buildings have an LEED rating, 638 have an EnergyStar rating and 7 have both these ratings.
+
+### Missing Values
+
+```{r, echo = FALSE}
+sapply(g_building, FUN = function(x){sum(is.na(x))})
+
+```
+
+We also see that we have about 74 missing values in the *empl.gr* column. This represents the year on year growth rate for employment in the building's geographic region.
+
+### The Analysis
+
+### Buildings with low occupancy rates. <br>
+
+The first issue raised by the analyst is of some buildings with low occupancy rates.
+Do these even exist? 
+
+Let's plot rent with occupancy rates and see where these buildings fall.
+
+```{r, echo = FALSE}
+
+occ_lt_10 <- sum(g_building$leasing_rate < 10)
+
+# Lets first add a column indicating whether the occupancy rate is less than 10%
+g_building$Group_Leasing <- ifelse(g_building$leasing_rate < 10, 1, 0)
+
+ggplot(g_building, aes(x = leasing_rate, y = Rent, fill = as.factor(Group_Leasing))) +  geom_point(shape = 21, alpha = 0.2, size = 3) +
+  scale_fill_manual("Occupany_Rate < 10%", values = c("black", "red"), 
+                    labels = c("No", "Yes")) + 
+  theme_minimal()
+```
+
+Looking at the plot above, we see that there are many buildings with occupancy rates less than 10% - $`r occ_lt_10`$ to be exact.
+
+Hmm, so we see that for buildings with less than 10% occupancy rates, the rents vary a lot, but the variation is still not clear with this chart. We also see that the discrepancies are larger for very small values of the occupancy rate. Let's zoom in a bit more to see it clearly.
+
+```{r, echo = FALSE}
+ggplot(g_building, aes(x = leasing_rate, y = Rent, fill = as.factor(Group_Leasing))) +  geom_point(shape = 21, alpha = 0.2, size = 3) +
+  scale_fill_manual("Occupany_Rate < 10%", values = c("black", "red"), 
+                    labels = c("No", "Yes")) + 
+  theme_minimal() + 
+  coord_cartesian(xlim = c(0, 10))
+
+```
+
+Much better! The graph now shows clearly that the points below leasing rates of 1% are the real culprits in being unusual with their rents. We will remove these points instead to proceed further with the analysis.
+
+```{r, echo = FALSE}
+g_building_clean <- filter(g_building, leasing_rate >= 1)
+
+```
+
+We removed around `r nrow(g_building) - nrow(g_building_clean)` rows this way and are left with `r nrow(g_building_clean)` rows in the data.
+
+### Median rent for green and non-green buildings. <br>
+
+The next issue is that of calculating the rent for green and non-green buildings respectively.  A boxplot is ideal here.
+
+```{r, echo = FALSE}
+
+median_1 <- median(g_building_clean$Rent[g_building_clean$green_rating == 1])
+median_0 <- median(g_building_clean$Rent[g_building_clean$green_rating == 0])
+
+ggplot(data = g_building_clean, aes(x = as.factor(green_rating), y = Rent)) +
+  geom_point(aes(fill = as.factor(green_rating)),
+             position = position_jitter(width = 0.2),
+             alpha = 0.3, 
+             shape = 21, 
+             size = 4) + 
+  scale_fill_manual(c("Green Building"), labels = c("No", "Yes"), values = c('brown2', 'steelblue2')) +
+  scale_x_discrete("Green Rating") +
+  stat_summary(fun.y= median, geom = 'point', size = 4) +
+  geom_abline(slope = 0, intercept = median_1, col = "steelblue2") +
+  geom_text(data = data.frame(x = 0, y = median_1),
+            aes(x, y), label = median_1, hjust = -2, vjust = -1, colour = "steelblue2") + 
+  geom_abline(slope = 0, intercept = median_0, col = "brown2") +
+  geom_text(data = data.frame(x = 0, y = median_0),
+            aes(x, y), label = median_0, hjust = -2, vjust = 1.5, colour = "brown2") +
+  ggtitle("Rent vs Green Rating") +
+  theme_minimal()
+
+```
+
+The rent values are marred by outlier values as shown by the large number of dots extending above the dense group of dots. The median value of green buildings is USD 27.6 while that of non-green buildings is USD 25. So there is a USD 2.6 difference while taking no variable into account.
+
+### Problem with the analysis - 1
+The problem that the analyst has not thought of is that he cannot directly compare the rents of buildings quoted on net or non-net since that means utility is included or not.
+
+
+```{r, echo = FALSE}
+ggplot(g_building_clean, aes(x= as.factor(net), y = Rent, fill = as.factor(green_rating))) +
+  geom_boxplot() +
+  scale_fill_discrete("Green Rating", labels =c("No", "Yes"))+
+  scale_x_discrete("Rent Inclusive of Utilities or not") +
+  theme_minimal() +
+  ggtitle("Rent Comparison with Net")
+  
+```
+
+The boxplot clearly shows the difference in rents between net and non-net rent payers as it is expected to be. The analyst cannot aggregate values disregarding this distinction. Since we need to consider rent with utilities and there is no way to calculate the utility costs, we will subset our data where net = 0 for further analysis.
+
+### Problem with the analysis - 2
+The other assumption that the analyst makes is that rent difference remains between green and non-green buildings continuously for a period of 30 years. Lets check whether this is true-
+
+```{r, echo = FALSE}
+# Lets club age into groups and calculate median rent for each age group
+age_groups <- cut(g_building_clean$age, breaks = c(-1,15,30, 60,200), labels = c("0-15", "16-30", "31-60", "61-200"))
+
+g_building_clean$Age_Group <- age_groups
+
+rent_age_rating <- as.data.frame(filter(g_building_clean, net == 0) %>% group_by(Age_Group, green_rating) %>% summarise(Median_Rent = median(Rent)))
+
+# Median Rent by Age Groups
+ggplot(rent_age_rating, 
+       aes(x = Age_Group, y = Median_Rent, fill = as.factor(green_rating))) +
+  geom_bar(stat = "identity", position = position_dodge(0.4), alpha = 0.4) +
+  scale_x_discrete("Age Group") + 
+  scale_fill_discrete("Green Rating", labels = c("No", "Yes")) +
+  ggtitle("Green Rating vs Age vs Rent for Buildings") + 
+  scale_color_discrete("Green Rating") +
+  theme_minimal()
+    
+```
+
+So, we see that expected rent for newer buildings (<5 years) is actually higher for non-green buildings. The rent for green buildings starts going up and pays back after the 15th year. So the analyst is incorrect in his break even analysis. Making a green building will - 
+1) Cost more upfront by $5 million.
+2) Pay less in rent initially than a non-green building, but then more after 15 years of its life. This can be attributed to the more sustainable material that means a better indoor quality than a non-green building.
+
+### Problem with the analysis - 3
+
+The analyst fails to consider the value of amenities in deciding the rent of the building.
+```{r, echo = FALSE}
+# Lets club age into groups and calculate median rent for each age group
+age_groups <- cut(g_building_clean$age, breaks = c(-1,15,30, 60,200), labels = c("0-15", "16-30", "31-60", "61-200"))
+
+g_building_clean$Age_Group <- age_groups
+
+rent_age_rating <- as.data.frame(filter(g_building_clean, net == 0) %>% group_by(Age_Group, green_rating, amenities) %>% summarise(Median_Rent = median(Rent)))
+
+# Median Rent by Age Groups
+ggplot(rent_age_rating, 
+       aes(x = Age_Group, y = Median_Rent, fill = as.factor(green_rating))) +
+  geom_bar(stat = "identity", position = position_dodge(0.4), alpha = 0.4) +
+  facet_wrap(. ~ as.factor(amenities)) + 
+  scale_x_discrete("Age Group") + 
+  scale_fill_discrete("Green Rating", labels = c("No", "Yes")) +
+  ggtitle("Green Rating vs Age vs Amenities vs Rent for Buildings") + 
+  scale_color_discrete("Green Rating") +
+  theme_minimal()
+```
+
+The graph above shows that given amenities, the difference between the rent of a green vs a non green building is lower initially.
+
+So, the real estate developer should consider making a green building if she is looking for a long term economic return on her building. Also, she is better off with a building with amenities. Assuming these and a 100% occupancy rate, this is how building a non-green building compares with building a green building -
+
+Costs           |    Non-Green    |     Green     |
+----------------|-----------------|---------------|
+Construction    |  100,000,000    |  105,000,000  |
+Rent(0-15yrs)   |  107,205,000    |  104,062,500  |
+Rent(16-30yrs)  |  104,287,500    |  105,750,000  |
+Rent(31-60yrs)  |  191,250,000    |  237,825,000  |
+  
+Therefore the developer would recover the additional construction cost somewhere in the 16th year after construction. **If the developer wants a quick recovery within 10 years, the best option would be a non-green building.** However, renting out apartments with rents inclusive of utilities means that the developer can make money on the utility bills also. We just dont have that information here to compute the results.
+
+
+## Flights at ABIA - Austin Bergstrom International Airport
+
+Let's read in the dataset. It has data for each flight that comes into ABIA or goes out of ABIA for the year 2008. We have each flight's basic details such as time of departure, arrival, any recorded delays, flight number, Distance, taxi time, etc. The dimensions of the data are - 
+```{r, echo = FALSE, include = FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(directlabels)
+library(RColorBrewer)
+library(ggalluvial)
+library(tidyverse)
+library(arules)
+library(arulesViz)
+library(tm) 
+library(magrittr)
+library(slam)
+library(proxy)
+library(xgboost)
+```
+
+```{r, echo = FALSE}
+airline <- read.table('ABIA.txt', sep = ",", header= TRUE,na.strings = c("NA",""))
+dim(airline)
+```
+
+Let's also look at a few rows of the data - 
+```{r, echo = FALSE}
+head(airline %>% select(1:6))
+
+```
+
+The variables provided in the dataset lead to a few obvious questions that can be answered here - <br>
+
+1. How many flights come into and go out of ABIA on a day, week, month, etc.?
+2. What are the most common departure times on any weekday or weekends?
+3. Which flight carriers experience the most delays?
+4. Which destination airports experience the most delays?
+5. Most frequent reason for flight cancellation?
+
+Let's look at the missing values in the data first, before we begin our analyses - 
+
+```{r, echo = FALSE}
+# check for missing values
+
+missing_values <- as.data.frame(sapply(airline, FUN = function(x){sum(is.na(x))}))
+missing_values$Columns <- rownames(missing_values)
+
+rownames(missing_values) <- NULL
+names(missing_values) <- c("Missing_Count", "Column Name")
+missing_values <- missing_values[c(2,1)]
+missing_values
+```
+
+We find that _CarrierDelay_, _WeatherDelay_, _NASDelay_, _SecurityDelay_ and _LateAircraftDelay_ have around 80,000 missing values. These shouldn't, therefore, provide any meaningful insights about the data.
+
+### What are the most common destinations for flights from Austin?
+
+This question is easily answered using the number of flights from Austin to each of these destinations. We see through the chart below that Dallas is the most common destination from Austin! Around 11,000 flights flew from Austin to DAL and DFW in 2008, this is almost 900 flights a month!
+
+```{r, echo = FALSE}
+airline %>% 
+  filter(Origin == "AUS", Cancelled == 0) %>% 
+  group_by(Dest) %>% 
+  summarise("Num_Flights" = n()) %>% 
+  arrange(-Num_Flights) %>%
+  head(5) %>%
+  ggplot(aes(x = reorder(Dest,Num_Flights), y = Num_Flights)) + 
+  geom_bar(stat ='identity') + 
+  coord_flip() + 
+  scale_x_discrete("Destination Airports") +
+  scale_y_continuous("Number of Flights in 2008") +
+  ggtitle("Top 5 Destinations from Austin") +
+  theme_minimal()
+
+top_5_dest <- airline %>% 
+  filter(Origin == "AUS", Cancelled == 0) %>% 
+  group_by(Dest) %>% 
+  summarise("Num_Flights" = n()) %>% 
+  arrange(-Num_Flights) %>%
+  head(5) %>%
+  select(Dest) %>%
+  unique
+
+top_5_dest <- as.character(top_5_dest$Dest)
+
+```
+
+### Are these specific months when more flights depart from Austin to these destinations?
+
+```{r, echo = FALSE}
+airline %>% 
+  filter(Origin == "AUS", Dest %in% top_5_dest, Cancelled == 0) %>% 
+  group_by(Dest, Month) %>% 
+  summarise("Num_Flights" = n()) %>% 
+  arrange(-Num_Flights) %>%
+  ggplot(aes(x = as.factor(Month), y = Num_Flights, group = Dest)) + 
+  geom_line(aes(linetype = Dest)) +
+  theme_minimal() +
+  geom_dl(aes(label = Dest), method = list("last.points", hjust = 0.5, vjust = -0.5)) +
+  scale_color_discrete(guide= F) +
+  theme(legend.position = 'None') +
+  scale_y_continuous("Number of flights")+
+  scale_x_discrete("Month") +
+  ggtitle("Flights per month in 2008 to top 5 destinations")
+
+```
+
+The chart shows that flights from Austin to all these destinations remain mostly the same per month, but for DAL the number of flights drop sharply in July from 600 to 300 odd. Since the data is only for 2008, we cant say if this a pattern that happens every year. However, we do see that since July 2008, there is an upward trend for flights to DFW airport!
+
+### What proportion of flights were cancelled from Austin in 2008?
+
+
+```{r, echo = FALSE}
+flight_cancel_from_austin <- airline %>%
+  filter(Origin == "AUS", Cancelled == 1) %>%
+  nrow
+
+flight_from_austin <- airline %>%
+  filter(Origin == "AUS") %>%
+  nrow
+
+flight_cancel_from_austin*100/flight_from_austin
+```
+
+We see that 1.4% of flights were cancelled from Austin.
+
+#### How many flights were cancelled to Austin?
+
+```{r, echo = FALSE}
+flight_cancel_to_austin <- airline %>%
+  filter(Dest == "AUS", Cancelled == 1) %>%
+  nrow
+
+flight_to_austin <- airline %>%
+  filter(Dest == "AUS") %>%
+  nrow
+
+flight_cancel_to_austin*100/flight_to_austin
+
+```
+
+Slightly fewer- 1.38% flights got cancelled to Austin.
+
+#### What are the most common reasons for cancelled flights coming into Austin?
+
+```{r, echo = FALSE}
+
+airline$CancellationCode <- factor(x = airline$CancellationCode,
+                                   levels = c("A","B","C","D"), 
+                                   labels = c("Carrier", "Weather", "NAS", "Security"))
+
+
+airline %>%
+  filter(Dest == "AUS", Cancelled == 1) %>%
+  select(CancellationCode) %>%
+  table
+
+```
+
+So most flights are delayed due to carrier related and weather related reasons! Sometimes, 48 out of ~700, there are traffic related issues as well! **Austin is a well managed airport!**
+
+### What does the average delay from Austin look like?
+
+We will look at departure delays from Austin.
+
+```{r, echo = FALSE}
+
+summary(airline %>%
+          filter(Origin == "AUS") %>%
+          select(DepDelay))
+
+```
+
+So we see that the maximum departure delay is around 875 minutes which is `r round(875/60,0)` hours! But we also see negative values here!! These might mean that a flight got permission to depart before is CRS departure time. Let's calculate the mean, median for only rows where delay was greater than 0.
+
+```{r, echo = FALSE}
+median(filter(airline, DepDelay >0, Origin == "AUS")$DepDelay, na.rm = T)
+
+```
+
+Flights departing from Austin are delayed by 11 minutes (median). 
+
+### Is there a pattern for certain destinations being affected more by delays?
+
+It could be that certain carriers are more inefficient than others in handling operations, thereby leading to flight delays! Let's look at the pattern of delays across UniqueCarriers for departures from Austin.
+
+```{r}
+# lets see the top 5 destinations with the most departure delays
+max_delay_dest <- airline %>%
+  filter(Origin == "AUS", Cancelled == 0, DepDelay > 0) %>%
+  group_by(Dest) %>%
+  summarise("Median_Delay" = median(DepDelay)) %>%
+  arrange(-Median_Delay)%>%
+  head(5)
+
+
+max_delay_dest <- as.character(max_delay_dest$Dest)
+```
+
+```{r, echo = FALSE}
+
+airline %>%
+  filter(Origin == "AUS", Cancelled == 0, DepDelay> 0) %>%
+  ggplot(aes(x = reorder(Dest, -DepDelay, median), 
+             y = DepDelay)) + 
+  geom_boxplot() +
+  theme_minimal() +
+  scale_y_continuous("Departure Delay From Austin") +
+  scale_x_discrete("Destination Airport") + 
+  ggtitle("Departure Delay Trend from Austin, 2008") +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+The boxplot shows that there are clearly large outliers in departure delays for each destination. Let's zoom in a bit on the top 5 destinations with most departure delays- 
+
+```{r, echo = FALSE}
+airline %>%
+  filter(Origin == "AUS", Cancelled == 0, DepDelay> 0, Dest %in% max_delay_dest) %>%
+  ggplot(aes(x = reorder(Dest,DepDelay, median), y = DepDelay)) + 
+  geom_boxplot() +
+  theme_minimal() +
+  scale_y_continuous("Departure Delay From Austin") +
+  scale_x_discrete("Destination Airport") + 
+  ggtitle("Destinations with max Departure Delay Trend from Austin, 2008")
+
+```
+
+In terms of departure delays from Austin we can say that **EWR - Newark Airport**, **SNA - John Wayne Airport, California**, and **STL - St Louis Airport Missouri** are the destinations with the most delays! We will disregard DSM since it just has one point
+
+
+### What are the worst times to fly for each month from Austin?
+Let's define the worst times to be times which are most prone to delays! Lets look at proportion of flights delayed for different times during the day across months and check!
+
+Lets categorise departure times from Austin into - <br>
+
+1. Early Morning (12am - 6am)
+2. Morning (6am - 9am)
+3. Pre-Afternoon (9am - 12pm)
+4. Affternoon (12pm - 3pm)
+5. Evening (3pm - 6pm)
+6. Night (6pm- 9pm)
+7. Late Night (9pm - 12am)
+
+We will then look at the median departure delays for these times for each month in 2008.
+
+```{r, echo = FALSE}
+airline$CRSDepTimeCategory <- NA
+airline$CRSDepTimeCategory[airline$CRSDepTime <= 600] <- "Early Morning"
+airline$CRSDepTimeCategory[airline$CRSDepTime > 600 & airline$CRSDepTime <= 900] <- "Morning"
+airline$CRSDepTimeCategory[airline$CRSDepTime > 900 & airline$CRSDepTime <= 1200] <- "Pre-Afternoon"
+airline$CRSDepTimeCategory[airline$CRSDepTime > 1200 & airline$CRSDepTime <= 1500] <- "Afternoon"
+airline$CRSDepTimeCategory[airline$CRSDepTime > 1500 & airline$CRSDepTime <= 1800] <- "Evening"
+airline$CRSDepTimeCategory[airline$CRSDepTime > 1800 & airline$CRSDepTime <= 2100] <- "Night"
+airline$CRSDepTimeCategory[airline$CRSDepTime > 2100 & airline$CRSDepTime <= 2359] <- "Late Night"
+
+
+airline$CRSDepTimeCategory <- factor(airline$CRSDepTimeCategory,
+                                        levels = c("Early Morning", "Morning", "Pre-Afternoon",
+                                                   "Afternoon", "Evening", "Night", "Late Night"),
+                                     ordered = TRUE)
+```
+
+
+
+```{r, echo = FALSE, include = FALSE}
+flights_delayed <- as.data.frame(airline %>%
+                                   filter(Cancelled==0, DepDelay > 30, Origin == "AUS") %>%
+                                   group_by(Month, CRSDepTimeCategory) %>%
+                                   summarise("Flights_Delayed" = n()))
+
+total_flights <- as.data.frame(airline %>%
+                                   filter(Cancelled==0, Origin == "AUS") %>%
+                                   group_by(Month, CRSDepTimeCategory) %>%
+                                   summarise("Total_Flights" = n()))
+
+merge_df <- left_join(total_flights, flights_delayed)
+
+
+merge_df$Prop_Delayed <- merge_df$Flights_Delayed*100/merge_df$Total_Flights
+```
+
+```{r, echo = FALSE}
+
+myColors <- brewer.pal(3, "Greys")
+
+
+ggplot(data = merge_df, 
+       aes(x = as.factor(Month), y = CRSDepTimeCategory, fill = Prop_Delayed)) + 
+  geom_tile() +
+  scale_fill_gradientn('Proportion of Flights Delayed', colors = myColors) +
+  theme_minimal() + 
+  ggtitle("Month wise Worst Times to Fly") +
+  scale_y_discrete("Departure Times") +
+  scale_x_discrete("Month")
+
+```
+
+The heatmap above shows the proportion of delays) darker colors mean more proportion of delays) by time of day and month. **We see that the most delays happen in the evening and night time across times. December is a particularly bad month in terms of delays as we see darker colors across the time range.**
+
+
+### Do weekends and weekdays have different patterns of delays?
+
+Let's define weekdays where _DayOfWeek_ is 1 through 4. Friday, Saturday and Sunday are the weekends.
+
+```{r, echo = FALSE, include = FALSE}
+airline$Day_Type <- ifelse(airline$DayOfWeek < 5, "Weekday", "Weekend")
+
+flights_delayed <- as.data.frame(airline %>%
+                                   filter(Cancelled==0, DepDelay > 30, Origin == "AUS") %>%
+                                   group_by(Day_Type, CRSDepTimeCategory) %>%
+                                   summarise("Flights_Delayed" = n()))
+
+total_flights <- as.data.frame(airline %>%
+                                   filter(Cancelled==0, Origin == "AUS") %>%
+                                   group_by(Day_Type, CRSDepTimeCategory) %>%
+                                   summarise("Total_Flights" = n()))
+
+merge_df <- left_join(total_flights, flights_delayed)
+
+
+merge_df$Prop_Delayed <- merge_df$Flights_Delayed*100/merge_df$Total_Flights
+
+```
+
+```{r, echo = FALSE}
+
+myColors <- brewer.pal(3, "Greys")
+
+
+ggplot(data = merge_df, 
+       aes(x = as.factor(Day_Type), y = CRSDepTimeCategory, fill = Prop_Delayed)) + 
+  geom_tile() +
+  scale_fill_gradientn('Proportion of Flights Delayed', colors = myColors) +
+  theme_minimal() + 
+  ggtitle("Weekday vs Weekend Worst Times to Fly") +
+  scale_y_discrete("Departure Times") +
+  scale_x_discrete("Day Type")
+
+```
+
+The worst times to fly during weekdays are Evening and Night times in terms of proportion of delays. We see that Weekends have equal proportion of delays for the 3-6pm and 6-9pm time slots!
+
+### Conclusion
+
+**We see that the most frequent destinations from Austin are Dallas, Denver, Phoenix (Arizona)** and the pattern of flights over the year showed some interesting patterns for DAL airport as the number of flights per month dropped to 300 from July. We did not find any such pattern for the other airports.
+
+People planning to fly out from Austin to <br>
+
+1. **EWR - Newark Airport**
+2. **SNA - John Wayne Airport, California**
+3. **STL - St Louis Airport Missouri** <br>
+
+can expect the most delays! These destinations **have a median flight delay of around 35 minutes**.
+
+Cancellations are very few at ABIA - 1.4%. **An analysis of these shows that almost all flights cancelled are due to carrier or weather reasons!**
+
+In terms of months, **December is a particularly busy month at ABIA and also the worst in terms of proportion of delays** and it can be explained due to the fact that its the holiday season! Apart from this, **the evening, night time is particularly prone to delays for all months**! Weekdays and weekends show the same pattern, with more delays on the weekend.

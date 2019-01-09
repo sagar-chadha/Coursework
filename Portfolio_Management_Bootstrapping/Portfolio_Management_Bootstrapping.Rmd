@@ -1,0 +1,238 @@
+---
+title: "Portfolio Management with Bootstrapping"
+output: 
+  md_document: 
+    variant: markdown_github
+  keep_md: yes
+  fig_width: 12
+  fig_height: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.width = 12,
+                      fig.height = 8)
+```
+
+## Bootstrapping
+
+```{r, echo = FALSE, include = FALSE}
+library(quantmod)
+library(foreach)
+library(gridExtra)
+library(mosaic)
+library(ggplot2)
+options("getSymbols.warning4.0"=FALSE)
+options("scipen"=100, "digits"=4)
+
+```
+
+Let's extract the prices for each asset class using the getSymbols function and adjust for splits/dividends.
+
+```{r, warning = FALSE, include = FALSE}
+my_stocks <- c("SPY", "TLT", "LQD", "EEM", "VNQ")
+getSymbols(my_stocks)
+
+# Adjust theses stocks for splits, dividends, etc.
+
+for (stock in my_stocks){
+  expr <- paste0(stock, "a <- adjustOHLC(", stock ,")")
+  eval(parse(text = expr))
+}
+
+all_returns <- cbind(ClCl(SPYa), ClCl(TLTa), ClCl(LQDa),ClCl(EEMa),ClCl(VNQa))
+all_returns <- as.matrix(na.omit(all_returns))
+
+```
+
+The prices are daily starting from 3rd January 2007. To get an idea of the kind of returns that they have provided, let's calculate the percent changes between two closing prices of each of these assets.
+
+To get a sense of the risk-returns properties of these assets, we can look at some summary statistics for these funds - 
+
+```{r, echo = FALSE}
+summary(all_returns)
+```
+
+The summary statistics show that the least risky investment would be one in US Treasury bonds, since the min-max variation is the least in those. The most risky investment is in Emerging market equities. They vary the most - from -67% to +23%! 
+
+Let's now plot the closing prices along with returns for all possible investments on a graph to see if we have captured the good and bad phases of the stock market - 
+
+```{r, echo = FALSE}
+# Plot of SPY
+par(mfrow = c(3,2))
+plot(SPY$SPY.Close, type = "l", col = 'red', main = "SPY Closing Prices")
+plot(TLTa$TLT.Close, tpye = "l", col = 'black', main = "TLT Closing Prices")
+plot(LQDa$LQD.Close, type = 'l', col = 'green', main = "LQD Closing Prices")
+plot(EEMa$EEM.Close, type = 'l',  col = 'blue', main = "EEM Closing Prices")
+plot(VNQa$VNQ.Close, type = 'l', col = 'yellow', main = "VNQ Closing Prices")
+
+```
+
+The chart shows that we have enough data from the past to capture the ups and downs in the stock market.
+
+### Strategy one - Even split of my assets
+
+An even split of my assets strategy is pretty straightforward, 20% across all portfolios. Let's take 5000 bootstrap samples from the past returns on each of these investments to make an informed judgement about the future returns in 20 days.
+
+Here, we assume that we re-distribute the total capital at the end of each day equally amongst the five ETFs.
+
+```{r, cache = TRUE}
+
+set.seed(99)
+wealth_matrix_1 <- matrix(0, nrow = 5000, ncol = 20)
+
+for(i in 1:5000){
+  
+  wealth_total <- 100000
+
+  for (j in 1:20){
+    
+    wealth <- wealth_total
+    
+    split_1 <- c(0.2, 0.2, 0.2, 0.2, 0.2)
+  
+    wealth_split_1 <- wealth*split_1
+  
+    sample_day <- mosaic::resample(all_returns, 1, orig.ids = FALSE)
+  
+    sample_return <- wealth_split_1 + wealth_split_1* sample_day
+    
+    wealth_total <- sum(sample_return)
+  
+    wealth_matrix_1[i,j] <- wealth_total
+  }
+}
+
+# plot the profit distribution
+ggplot(mapping = aes(wealth_matrix_1[,20] - 100000)) +
+  geom_histogram(bins = 20, color = 'black', fill = 'white') +
+  theme_minimal() +
+  labs(x = "Net Profit",
+       y = "Frequency",
+       title = "Risk of Loss",
+       subtitle = "Strategy 1")
+```
+
+The above histogram shows the difference between final amount at the end of 20 days and the initial wealth invested. Negtives mean losses and positive means profits. The value at risk at the 5% level is $ `r quantile(wealth_matrix_1[,20] - 100000, 0.05)`
+
+### Strategy two - Safer than even split
+
+From the summary statistics that we saw, we notice that *SPY*, *TLT* and *LQD* are the safe bets. They have not had shocking upswings but correspondingly they have not had large downswings.
+
+```{r, cache = TRUE}
+set.seed(99)
+
+wealth_matrix_2 <- matrix(0, nrow = 5000, ncol = 20)
+
+for(i in 1:5000){
+  
+  wealth_total <- 100000
+
+  for (j in 1:20){
+    
+    wealth <- wealth_total
+    
+    split_2 <- c(0.2, 0.4, 0.4, 0, 0)
+  
+    wealth_split_2 <- wealth*split_2
+  
+    sample_day <- mosaic::resample(all_returns, 1, orig.ids = FALSE)
+  
+    sample_return <- wealth_split_2 + wealth_split_2* sample_day
+    
+    wealth_total <- sum(sample_return)
+  
+    wealth_matrix_2[i,j] <- wealth_total
+  }
+}
+
+# plot the profit distribution
+ggplot(mapping = aes(wealth_matrix_2[,20] - 100000)) +
+  geom_histogram(bins = 20, color = 'black', fill = 'white') +
+  theme_minimal() +
+  labs(x = "Net Profit",
+       y = "Frequency",
+       title = "Risk of Loss",
+       subtitle = "Strategy 2")
+```
+
+The above histogram shows the difference between final amount at the end of 20 days and the initial wealth invested. Negtives mean losses and positive means profits. The value at risk at the 5% level is $ `r quantile(wealth_matrix_2[,20] - 100000, 0.05)`
+
+### Strategy three - Aggressive strategy
+
+Similarly, we notice that *VNQ* and *EEM* are the riskier portfolios due to their volatile nature. We invest more in EEMs due to the possibility of a very large return on my investment.
+
+
+```{r, cache = TRUE}
+
+set.seed(99)
+wealth_matrix_3 <- matrix(0, nrow = 5000, ncol = 20)
+
+for(i in 1:5000){
+  
+  wealth_total <- 100000
+
+  for (j in 1:20){
+    
+    wealth <- wealth_total
+    
+    split_3 <- c(0, 0, 0, 0.5, 0.5)
+  
+    wealth_split_3 <- wealth*split_3
+  
+    sample_day <- mosaic::resample(all_returns, 1, orig.ids = FALSE)
+  
+    sample_return <- wealth_split_3 + wealth_split_3* sample_day
+    
+    wealth_total <- sum(sample_return)
+  
+    wealth_matrix_3[i,j] <- wealth_total
+  }
+}
+
+# plot the profit distribution
+ggplot(mapping = aes(wealth_matrix_3[,20] - 100000)) +
+  geom_histogram(bins = 20, color = 'black', fill = 'white') +
+  theme_minimal() +
+  labs(x = "Net Profit",
+       y = "Frequency",
+       title = "Risk of Loss",
+       subtitle = "Strategy 3")
+
+```
+
+The above histogram shows the difference between final amount at the end of 20 days and the initial wealth invested. Negtives mean losses and positive means profits. The value at risk at the 5% level is $ `r quantile(wealth_matrix_3[,20] - 100000, 0.05)`
+
+Looking at the bootstrap resamples and the related value at risk at 5%, we see that - <br>
+
+1. The strategy to **divide assets amongst the portfolios equally** has a value at risk at 5% of $`r quantile(wealth_matrix_1[,20] - 100000, 0.05)`. However, looking at the other summary statistics shows that - 
+
+```{r, echo = FALSE}
+summary(wealth_matrix_1[,20])
+
+```
+
+We would end up with around USD `r round(mean(wealth_matrix_1[,20]),0)` on average with a possibility to even reach USD `r round(max(wealth_matrix_1[,20]),0)`!
+
+2. The strategy to **play safe and invest only in SPY, TLT and LQD** has a value at risk at 5% of $`r quantile(wealth_matrix_2[,20] - 100000, 0.05)`. Looking at the other summary statistics, see that - 
+
+```{r, echo = FALSE}
+summary(wealth_matrix_2[,20])
+
+```
+
+The strategy to play safer shows in the results. On average we end up with around USD `r round(mean(wealth_matrix_2[,20]),0)` and the max we can possibly make is USD `r round(max(wealth_matrix_2[,20]),0)`.
+
+
+3. The strategy to **play aggressively and invest only in EEM and VNQ** has a value at risk at 5% of $`r quantile(wealth_matrix_3[,20] - 100000, 0.05)`. Looking at the other summary statistics, we see that - 
+
+```{r, echo = FALSE}
+summary(wealth_matrix_3[,20])
+
+```
+
+There is a super high risk with this investment. Although the average is still around USD `r round(mean(wealth_matrix_3[,20]),0)`, we can possible more than double our money and end up with USD `r round(max(wealth_matrix_3[,20]),0)` or lose a lot and end up with just USD `r round(min(wealth_matrix_3[,20]),0)`.
+
+The investor has to carefully regard these results to make his decision - <br>
+1. An old investor should play very safely and choose strategy 2. <br>
+2. A younger investor with a good income can possibly take a chance with strategy 3 and try his luck!

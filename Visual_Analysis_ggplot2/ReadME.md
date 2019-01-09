@@ -2,8 +2,7 @@
 In the problems that follow, I try to use various visualizations in an attempt to answer the questions being asked.
 
 
-## Green Buildings. Is it worth the investment?
-
+## Green Buildings. Are they worth the investment?
 
 ![GreenBuildings](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/green%20buildings.jpeg) <br>
 
@@ -12,8 +11,9 @@ In this problem, I look at data for 7,894 commercial rental properties from acro
 
 ## Austin–Bergstrom International Airport flights analysis.
 
-### The task
 ![Airport](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/airport.jpg)
+
+### The task
 In this problem, I look at all flights that take off or land in ABIA in the year 2008 and try to answer the following questions using some cool looking plots - 
 * What are the most common destinations for flights from Austin?
 * Are these specific months when more flights depart from Austin to these destinations?

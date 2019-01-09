@@ -1,21 +1,58 @@
 Grocery Store Purchase Analysis using Association Rules
 -------------------------------------------------------
 
-Reading in the data, we find that the data has 9,835 transactions. Each row is one transaction and each comma separated item is one item from that transaction!
+Reading in the data, we find that the data has 9,835 transactions. Each
+row is one transaction and each comma separated item is one item from
+that transaction!
 
-    ## [1] 9835
+Let’s look at one row from our data -
 
-Let’s get a sense of what the customers are buying from this store! This will lead into our analysis of what items are most frequently bought together.
+``` r
+groceries[1,]
+```
+
+    ## [1] "citrus fruit,semi-finished bread,margarine,ready soups"
+
+Currently our data is just comma separated items with each row of our
+data being one transaction. For our analysis we need to convert this to
+a list with each element of the list being a vector with the items from
+a transaction.
+
+``` r
+item_list <- list()
+
+for (i in 1:nrow(groceries)){
+  item_list[[i]] <- unlist(strsplit(groceries[i,], ","))
+}
+
+item_list <- apply(groceries, MARGIN = 1, FUN = function(x){unlist(strsplit(x, ","))})
+
+item_vector <- unlist(item_list)
+```
 
 ### What is the number of different items sold here?
+
+This would give us a sense of what customers are buying from this store
+and lead into our analysis of what items are most frequently bought
+together.
 
     ## [1] 169
 
 ### What sells most commonly?
 
-![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](Association_Rules_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
-The most commonly sold item is **Whole Milk** followed by **Vegetables** and **Rolls/Buns**! Out of the 169 unique items sold, we see that only 15 odd items are sold in considerable amounts. There is a long tail of low selling items! What are these?
+The most commonly sold item is **Whole Milk** followed by **Vegetables**
+and **Rolls/Buns**! Out of the 169 unique items sold, we see that only
+15 odd items are sold in considerable amounts.
+
+### There is a long tail of low selling items! What are these?
+
+``` r
+count_item %>%
+  arrange(Freq) %>%
+  head(10)
+```
 
     ##              item_vector Freq
     ## 1              baby food    1
@@ -29,8 +66,26 @@ The most commonly sold item is **Whole Milk** followed by **Vegetables** and **R
     ## 9        make up remover    8
     ## 10        salad dressing    8
 
-### Let’s see what items are associated with other items on the grocery list?
-This would mean items that are most commonly sold together in a transaction! We will use a low *minsup* (minimum support) threshold here since we want item associations that would not be obvious to the grocer at first glance- Items like milk, eggs, vegetables are the most commonly bought items and most people know about their association
+### What items are associated with other items on the grocery list?
+
+Association here means items that are most commonly sold together in a
+transaction! We will use a low *minsup* (minimum support) threshold here
+since we want item associations that would not be obvious to the grocer
+at first glance- Items like milk, eggs, vegetables are the most commonly
+bought items and most people know about their associations.
+
+``` r
+# consider only unique items in each basket
+item_list <- lapply(item_list, unique)
+
+# convert to the transactions type
+item_transactions <- as(item_list, "transactions")
+
+# apply the apriori
+groceryrules <- apriori(item_transactions,
+                        parameter=list(support = .001,
+                                       confidence = .5))
+```
 
     ## Apriori
     ## 
@@ -50,13 +105,22 @@ This would mean items that are most commonly sold together in a transaction! We 
     ## set transactions ...[169 item(s), 9835 transaction(s)] done [0.00s].
     ## sorting and recoding items ... [157 item(s)] done [0.00s].
     ## creating transaction tree ... done [0.00s].
-    ## checking subsets of size 1 2 3 4 5 6 done [0.01s].
+    ## checking subsets of size 1 2 3 4 5 6 done [0.02s].
     ## writing ... [5668 rule(s)] done [0.00s].
     ## creating S4 object  ... done [0.00s].
 
+``` r
+head(groceryrules, n = 10, by ="lift")
+```
+
     ## set of 10 rules
 
-![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/unnamed-chunk-7-1.png)
+``` r
+plot(head(groceryrules, n = 10, by ="lift"), method = "graph", 
+     main = "Top 10 Association Rules")
+```
+
+![](Association_Rules_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 A study of the associations shows us the following - <br>
 

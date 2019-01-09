@@ -1,4 +1,4 @@
-## Probability Practice
+## Basic Probability Concepts 
 
 ### Question 1
 

@@ -483,7 +483,7 @@ A large number of english stop words, punctuations, spaces, etc were
 removed and Document Term matrices were created. **We managed a max
 accuracy of 62.32% using a Naive Bayes model!**
 
-#### Assumptions made
+### Assumptions made
 
 **Terms not appearing in 99% of the documents could be safely removed
 before the analysis**. This could potentially be harming the accuracies

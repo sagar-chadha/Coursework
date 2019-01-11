@@ -16,5 +16,5 @@ Modelling techniques employed -
 * Naive Bayes
 
 ### Repository Structure
-`Author_attribution.Rmd` is the R notebook with the code used to produce the final report. <br>
-`Author_attribution.md` is the final markdown report with my analysis.
+[`Author_attribution.Rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Text_Analytics/Author_Attribution/Author_Attribution.Rmd) is the R notebook with the code used to produce the final report. <br>
+[`Author_attribution.md`](https://github.com/sagar-chadha/Coursework/blob/master/Text_Analytics/Author_Attribution/Author_Attribution.md) is the final markdown report with my analysis.

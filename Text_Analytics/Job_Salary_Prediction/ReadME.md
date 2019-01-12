@@ -31,4 +31,4 @@ Given that this is a problem with imbalanced classes, accuracy is not the right 
 **A multinomial Naive Bayes model gave me the best accuracy of 82.4%. The AUROC metric was at 0.76.**
 
 ### Repository Structure
-`job_salary_prediction.ipynb` is the jupyter notebook with my detailed approach and analysis.
+[`Job_Salary_Prediction.ipynb`](https://github.com/sagar-chadha/Coursework/blob/master/Text_Analytics/Job_Salary_Prediction/Job_Salary_Prediction.ipynb) is the jupyter notebook with my detailed approach and analysis.

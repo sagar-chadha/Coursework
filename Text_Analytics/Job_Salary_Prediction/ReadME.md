@@ -28,7 +28,7 @@ Although originally a regression type problem, I have simplified this problem to
 ### Results Obtained
 Given that this is a problem with imbalanced classes, accuracy is not the right metric here. However, given that the baseline accuracy is 75% (a model that says low salary would be correct 75% of the time) I still need a model with an accuracy greater than 75%. 
 
-**A multinomial Naive Bayes model gave me the best accuracy of 82.4%. The AUROC metric was at 0.77.**
+**A multinomial Naive Bayes model gave me the best accuracy of 82.4%. The AUROC metric was at 0.76.**
 
 ### Repository Structure
 `job_salary_prediction.ipynb` is the jupyter notebook with my detailed approach and analysis.

@@ -26,4 +26,4 @@ Our MDS plot confirms the suspicions that **Cadillac has successfully brought it
 
 ### Repository Structure
 `Customer_Preference_Analysis.ipynb` is the jupyter notebook with my analysis. <br>
-I have also added `Practice_Selenium.ipynb` as a short guide on how to use the `selenium` library.
+I have also added [`Practice_Selenium.ipynb`](https://github.com/sagar-chadha/Coursework/blob/master/Text_Analytics/Customer_Preference_Analysis/Practice_Selenium.ipynb) as a short guide on how to use the `selenium` library.

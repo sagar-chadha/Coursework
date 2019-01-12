@@ -15,6 +15,10 @@ My approach for this task is as follows -
 * Get association between brands (MDS Plot) and between brands and features using lift values.
 * Get aspirational phrases such as 'leaning towards', 'next car will be', etc and see which brands are most associated with these brands.
 
+### Concepts Used
+* **Lift** - Lift quantifies the question - 'Do these terms occur together very frequently as compared to their overall occurence'.
+* **MDS Plot** - The Multi-Dimensional scaling plot, or MDS plot, is sort of like a scatterplot that quantifies the similarity or dissimilarity between products. The farther two points are, the less their association is.
+
 ### Recommendations
 
 #### Based on brand associations

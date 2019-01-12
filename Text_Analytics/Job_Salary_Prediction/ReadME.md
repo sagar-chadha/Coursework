@@ -16,7 +16,7 @@ Although originally a regression type problem, I have simplified this problem to
  * Use a combination of job description and other variables for the challenge.
  
  ### Concepts Used
- * Text Mining concepts such as stopwords, tokenization, stemming, lemmatization, Zipf's law (for a brief discussion of these concepts read up [my article](https://medium.com/@sagarchadha007/words-are-more-than-wind-db67fd8a7746) on Medium).
+ * Text Mining concepts such as stopwords, tokenization, stemming, lemmatization, Zipf's law (for a brief discussion of these concepts you can refer [my article](https://medium.com/@sagarchadha007/words-are-more-than-wind-db67fd8a7746) on Medium).
  * Python's `nltk` library to manipulate text data.
  * Bernoulli and Multinomial Naive Bayes algorithms.
  * Mutual Information

@@ -1,5 +1,5 @@
 ## Visual Analysis with ggplot2
-In the problems that follow, I try to use various visualizations in an attempt to answer the questions being asked.
+In the problems that follow, I try to use various visualizations to answer the questions being asked.
 
 
 ## Green Buildings. Are they worth the investment?

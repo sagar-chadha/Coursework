@@ -2,9 +2,9 @@
 ![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Text_Analytics/Customer_Preference_Analysis/customer%20preference.jpg)
 
 ### The Task
-The goal is to scrape the entry level luxury sedan forum from Edmunds and advise brand, product and advertising managers based on an analysis of the comments. I use cars here since they are a 'high involvement' product, meaning that people will usually research a lot and care to give reviews about their purchases on social media platforms.
+The goal is to scrape the entry level luxury sedan forum from Edmunds and analyse user comments. I use cars here since they are a 'high involvement' product, meaning that people will usually research a lot and care to give reviews about their purchases on social media platforms.
 
-For entry level luxury car brands, we will look at which brands are people most talking about, what are they mentioning most when it comes to product features, which two brands are being compared heavily, etc. 
+For entry level luxury car brands, we will look at which brands are people most talking about, what are they mentioning most when it comes to product features, which two brands are being compared heavily, etc. Based off of this analysis, we need to then provide insights and recommendations to brand, product and advertising managers.
 
 ### Approach
 My approach for this task is as follows - 

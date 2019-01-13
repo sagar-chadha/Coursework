@@ -13,7 +13,7 @@ My approach for this task is as follows -
 * Clean user comments - remove stop words, punctuations, numbers, etc
 * Make a list of automobile features such as safety, performance, etc. Look for words in the comments that map to these features and replace those words with feature names.
 * Get association between brands (MDS Plot) and between brands and features using lift values.
-* Get aspirational phrases such as 'leaning towards', 'next car will be', etc and see which brands are most associated with these brands.
+* Analyze which is the most aspirational brand - I consider this to be the brand that's most talked about in a positive manner.
 
 ### Concepts Used
 * **Lift** - Lift quantifies the question - 'Do these terms occur together very frequently as compared to their overall occurence'.

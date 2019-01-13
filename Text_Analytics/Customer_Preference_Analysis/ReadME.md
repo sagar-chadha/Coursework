@@ -29,5 +29,5 @@ Our MDS plot confirms the suspicions that **Cadillac has successfully brought it
 * BMW is far from being the "ultimate driving machine" on Edmunds. BMW and the different car attributes have comparitively low lift values to the other top brands. This implies that when people are talking about different desirable car features, BMW does not come to mind.
 
 ### Repository Structure
-`Customer_Preference_Analysis.ipynb` is the jupyter notebook with my analysis. <br>
+[`Customer_Preference_Analysis.ipynb`](https://github.com/sagar-chadha/Coursework/blob/master/Text_Analytics/Customer_Preference_Analysis/Customer_Preference_Analysis.ipynb) is the jupyter notebook with my analysis. <br>
 I have also added [`Practice_Selenium.ipynb`](https://github.com/sagar-chadha/Coursework/blob/master/Text_Analytics/Customer_Preference_Analysis/Practice_Selenium.ipynb) as a short guide on how to use the `selenium` library.

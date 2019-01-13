@@ -20,4 +20,4 @@ Using the Reddit API and pushshift.io (Big Query), we extracted user comments fr
 
 ### Repository Structure
 'Cord_Cutting.ipynb' has the code with the final analysis. <br>
-'Cord_Cutting.pptx' has our final presentation.
+['Cord_Cutting_Presentation.pdf']() has our final presentation.

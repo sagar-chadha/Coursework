@@ -1,5 +1,5 @@
 ## Job Salary Prediction
-![image](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/salary_prediction.jpg)
+![image](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Text_Analytics/Job%20Salary%20Prediction/salary_prediction.jpg)
 
 ### The Task
 This was a [challenge](https://www.kaggle.com/c/job-salary-prediction#description) put forth by Adzuna - a new search engine for job, property, and car ads based in the UK - on Kaggle. Adzuna wants to build a prediction engine for the salary of any UK job ad, so they can make improvements in the experience of users searching for jobs, and help employers and jobseekers figure out the market worth of different positions.

@@ -1,5 +1,5 @@
 ## Finding the best investment strategy using Bootstrapping.
-![Investment](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/investment-portfolio.jpg) <br>
+![Investment](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Bootstrapping_files/figure-markdown_github/investment-portfolio.jpg) <br>
 
 ### The Task
 In this problem, I look at several years of past data for these ETFs - <br>

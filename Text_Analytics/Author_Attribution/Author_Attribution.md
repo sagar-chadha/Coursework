@@ -178,7 +178,7 @@ plot(summary(pca_train)$importance[3,], main = "PCA Analysis Train", xlab = "Com
      ylab = "Cumulative % Variance Explained")
 ```
 
-![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Author_Attribution_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Text_Analytics/Author%20Attribution/unnamed-chunk-5-1.png)
 
 A summary of the variance explained shows us that around 350 principal
 components explain around 50% of the overall variance! <br>
@@ -254,7 +254,7 @@ for (i in c(5,7,9,11)){
 plot(c(5,7,9,11), accuracies, main = "KNN accuracy vs K", xlab = "K-Values", ylab = "Accuracy Score", lty = 1)
 ```
 
-![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Author_Attribution_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Text_Analytics/Author%20Attribution/unnamed-chunk-8-1.png)
 
 The plot shows that using 5 nearest neighbors, we get an overall
 accuracy of ~35%. What does the model get right?

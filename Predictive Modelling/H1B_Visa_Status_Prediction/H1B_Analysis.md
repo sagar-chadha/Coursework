@@ -546,7 +546,15 @@ xgb.plot.importance(importance_matrix = importance)
 
 ![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
-The
+The chart above shows the most important predictors for our task - <br>
+
+* Submission to decision time lag
+* wage offered by company
+* Employment grouo
+* the month of march for decision making
+* dependents on the H1B visa candidate
+
+The confusion matrix for this model is shown below - <br>
 
 ``` r
 y_pred <- predict(bst, data.matrix(sparse_matrix_test))
@@ -590,3 +598,4 @@ cat("True negative rate is: ", TN_error_rate, "%")
 ``` r
 options(na.action=previous_na_action$na.action)
 ```
+We see that the XGBoost model has the lowest false positive rate, which is why we chose this as the best model for predicting the H1B visa application status for applicants!

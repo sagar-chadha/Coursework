@@ -18,3 +18,8 @@ This project was undertaken to get some hands on practice with the various machi
 * Threshold selection for models.
 * Linear Discriminant Analysis
 * Random Forest
+* XGBoost
+
+### Repository Structure
+`H1B_Visa_Status.rmd` has the R notebook with the code used for making the report. <br>
+`H1B_Visa_Status.md` is the final markdown report with the analysis.

@@ -1,5 +1,5 @@
 ## H1B Visa Status Prediction
-
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1bvisa.jpeg)
 ### The Task
 Using data of over 500,000 visa applications to the US between 2011 and 2017, we try to predict the 'Status' of the visa application based on predictors such as - <br>
 * Wage offered

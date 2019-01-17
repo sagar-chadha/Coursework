@@ -21,5 +21,5 @@ This project was undertaken to get some hands on practice with the various machi
 * XGBoost
 
 ### Repository Structure
-`H1B_Visa_Status.rmd` has the R notebook with the code used for making the report. <br>
+[`H1B_Visa_Status.rmd`](https://github.com/sagar-chadha/Coursework/blob/master/Predictive%20Modelling/H1B_Visa_Status_Prediction/H1B_Analysis.Rmd) has the R notebook with the code used for making the report. <br>
 `H1B_Visa_Status.md` is the final markdown report with the analysis.

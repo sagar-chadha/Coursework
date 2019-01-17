@@ -1,6 +1,6 @@
 ## Association Rule Mining
 ### The task
-![Grocery](https://github.com/sagar-chadha/Predictive-Modelling-Assignments/blob/master/Assignment2/Assignment2_SagarChadha_files/figure-markdown_github/grocery.jpg)
+![Grocery](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Association_Rules_files/figure-markdown_github/grocery.jpg)
 Using transactions data from a grocery store, I use association rule mining to get a sense of customer purchase patterns for use by the store management.
 
 ### Practical Applications

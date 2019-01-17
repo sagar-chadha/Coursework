@@ -58,7 +58,7 @@ help us predict the outcome.
 
 ### Status v/s Waiting time between submission and decision
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 There is a clear pattern here - applications that wait longer are
 generally certified. Decisions that are quickly made are generally
@@ -66,21 +66,21 @@ generally certified. Decisions that are quickly made are generally
 
 ### Status v/s Wages
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 We don’t find much of a pattern here. Both categories have wages that
 look pretty similar in distribution.
 
 ### Status v/s application submission month
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![]()
 
 We find denial rates changing slightly with application submission
 months but not much.
 
 ### decision month vs denial rate
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 Model training
 --------------
@@ -345,7 +345,7 @@ Lets look at various threshold values and their corresponding error
 rates and False negative error rates. We will use this chart to select
 an optimum value for threshold based on our requirements.
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 From the above plot, we can choose threshold = 0.08. Lets look at the
 various error rates with the chosen value of threshold.
@@ -468,7 +468,7 @@ status.rf <- randomForest(formula = status ~ ., data=ds.train, ntree=50, proximi
 varImpPlot(status.rf, main="Importance for Random Forest")
 ```
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-20-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 ``` r
 # Bagging model with the 3 best variables as identified by Importance plot
@@ -476,7 +476,7 @@ status.bag = randomForest(formula = status ~ wage + Sub_to_dec + soc_new, data=d
 varImpPlot(status.bag)
 ```
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-20-2.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-20-2.png)
 
     ## Confusion matrix for this model -
 
@@ -515,7 +515,7 @@ importanceClean <- importanceRaw[,`:=`(Cover=NULL, Frequency=NULL)]
 xgb.plot.importance(importance_matrix = importance)
 ```
 
-![](H1B_Analysis_files/figure-markdown_github/unnamed-chunk-23-1.png)
+![](https://github.com/sagar-chadha/Coursework/blob/master/Repository_files/Predictive%20Modelling/H1B%20Visa%20Analysis/H1B_Analysis_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 The chart above shows the most important predictors for our task - <br>
 

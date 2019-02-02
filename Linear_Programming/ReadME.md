@@ -9,3 +9,7 @@ Linear programming problems are essentially optimization problems where both the
 
 ### Programming Language used
 I will use `R` for solving these problems. Specifically I will use the package `lpSolve`
+
+### Repository Structure
+`.rmd` files are the RMarkdown notebooks with the code to do the optimisation problems. <br>
+`.md` is the markdown with the final results.

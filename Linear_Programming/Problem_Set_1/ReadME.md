@@ -43,3 +43,17 @@ Add the non-negative constraints which ensure a positive number of units
 manufactured for each type of variant. Formulate this as a Linear
 Programming problem with appropriate decision variables, constraints,
 and an objective. Do not solve the program.
+
+Problem 4
+---------
+
+### Part a
+
+Use “for loop(s)” and “if statement” within the loop to generate a 20 by
+20 Lehmer matrix A where
+
+A<sub>i,j</sub> = i/j, j &gt;= i
+
+and
+
+A<sub>i,j</sub> = j/i, j &lt; i

@@ -62,3 +62,20 @@ A<sub>i,j</sub> = j/i, j &lt; i
 
 Test whether A is symmetric or not. Namely, is
 *A* = *A*<sup>*T*</sup>
+
+### Part c)
+
+Calculate
+*C* = *A*<sup> − 1</sup>
+
+in R. Test whether the inverse is correct. That is, calculate C × A in R
+and see whether the product is an identity matrix.
+
+### Part d)
+
+Assign \[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1\]
+to d in R.
+
+### Part e)
+
+Solve for x in the equation Ax = Cd.

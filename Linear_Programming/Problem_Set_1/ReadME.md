@@ -57,3 +57,8 @@ A<sub>i,j</sub> = i/j, j &gt;= i
 and
 
 A<sub>i,j</sub> = j/i, j &lt; i
+
+### Part b
+
+Test whether A is symmetric or not. Namely, is
+*A* = *A*<sup>*T*</sup>
